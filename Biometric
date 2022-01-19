@@ -1,0 +1,173 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "name": "Untitled0.ipynb",
+      "provenance": [],
+      "authorship_tag": "ABX9TyNZwW3ony8exPZtcY7kYS0S",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/harignanesh/Biometric/blob/main/Biometric\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "D75W33PeOV8X"
+      },
+      "outputs": [],
+      "source": [
+        "import pandas as pd\n",
+        "import tensorflow as tf\n",
+        "from tensorflow import keras\n",
+        "from tensorflow.keras import layers\n",
+        "from tensorflow import keras\n",
+        "import matplotlib.pyplot as plt\n",
+        "from tensorflow.keras.preprocessing.image import ImageDataGenerator\n",
+        "%matplotlib inline\n",
+        "import numpy as np\n",
+        "classes = ['Hari','JohnWick']\n",
+        "from tensorflow.keras.layers import Dense,Flatten\n",
+        "from tensorflow.keras.models import Model\n",
+        "from tensorflow.keras.optimizers import RMSprop\n",
+        "import cv2 \n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "\n",
+        "train = ImageDataGenerator(rescale =1/255)\n",
+        "\n",
+        "train_dataset = train.flow_from_directory(\"/content/sample_data/Images\",\n",
+        "                                               target_size = (200, 200),batch_size = 3,class_mode='binary')\n",
+        "\n",
+        "\n",
+        "model = tf.keras.models.Sequential([ tf.keras.layers.Conv2D(16,(3,3),activation = 'relu',input_shape=(200,200,3)),\n",
+        "                                    tf.keras.layers.MaxPool2D(2,2),\n",
+        "                                    #\n",
+        "                                    tf.keras.layers.Conv2D(32,(3,3),activation = 'relu'),\n",
+        "                                    tf.keras.layers.MaxPool2D(2,2),\n",
+        "                                    #\n",
+        "                                    tf.keras.layers.Conv2D(64,(3,3),activation = 'relu'),\n",
+        "                                    tf.keras.layers.MaxPool2D(2,2),\n",
+        "                                    #\n",
+        "                                    tf.keras.layers.Flatten(),\n",
+        "                                    tf.keras.layers.Dense(512,activation='relu'),\n",
+        "                                    tf.keras.layers.Dense(1,activation='sigmoid')\n",
+        "                                    ])\n",
+        "\n",
+        "model.compile(loss='binary_crossentropy',\n",
+        "             optimizer =RMSprop(learning_rate=0.001),\n",
+        "              metrics=['accuracy'])\n",
+        "\n",
+        "x = np.array(train_data.filenames)\n",
+        "y= np.array(train_data.labels)\n",
+        "\n",
+        "\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 398
+        },
+        "id": "bohUZZeUOZHb",
+        "outputId": "651609e4-7691-45bb-d643-cba550711e19"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "error",
+          "ename": "FileNotFoundError",
+          "evalue": "ignored",
+          "traceback": [
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+            "\u001b[0;31mFileNotFoundError\u001b[0m                         Traceback (most recent call last)",
+            "\u001b[0;32m<ipython-input-5-4d4828f5e999>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m()\u001b[0m\n\u001b[1;32m      3\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      4\u001b[0m train_dataset = train.flow_from_directory(\"/content/sample_data/Images\",\n\u001b[0;32m----> 5\u001b[0;31m                                                target_size = (200, 200),batch_size = 3,class_mode='binary')\n\u001b[0m\u001b[1;32m      6\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      7\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;32m/usr/local/lib/python3.7/dist-packages/keras/preprocessing/image.py\u001b[0m in \u001b[0;36mflow_from_directory\u001b[0;34m(self, directory, target_size, color_mode, classes, class_mode, batch_size, shuffle, seed, save_to_dir, save_prefix, save_format, follow_links, subset, interpolation)\u001b[0m\n\u001b[1;32m    990\u001b[0m         \u001b[0mfollow_links\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0mfollow_links\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    991\u001b[0m         \u001b[0msubset\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0msubset\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 992\u001b[0;31m         interpolation=interpolation)\n\u001b[0m\u001b[1;32m    993\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    994\u001b[0m   def flow_from_dataframe(self,\n",
+            "\u001b[0;32m/usr/local/lib/python3.7/dist-packages/keras/preprocessing/image.py\u001b[0m in \u001b[0;36m__init__\u001b[0;34m(self, directory, image_data_generator, target_size, color_mode, classes, class_mode, batch_size, shuffle, seed, data_format, save_to_dir, save_prefix, save_format, follow_links, subset, interpolation, dtype)\u001b[0m\n\u001b[1;32m    408\u001b[0m         \u001b[0msubset\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0msubset\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    409\u001b[0m         \u001b[0minterpolation\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0minterpolation\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 410\u001b[0;31m         **kwargs)\n\u001b[0m\u001b[1;32m    411\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    412\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;32m/usr/local/lib/python3.7/dist-packages/keras_preprocessing/image/directory_iterator.py\u001b[0m in \u001b[0;36m__init__\u001b[0;34m(self, directory, image_data_generator, target_size, color_mode, classes, class_mode, batch_size, shuffle, seed, data_format, save_to_dir, save_prefix, save_format, follow_links, subset, interpolation, dtype)\u001b[0m\n\u001b[1;32m    113\u001b[0m         \u001b[0;32mif\u001b[0m \u001b[0;32mnot\u001b[0m \u001b[0mclasses\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    114\u001b[0m             \u001b[0mclasses\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0;34m[\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 115\u001b[0;31m             \u001b[0;32mfor\u001b[0m \u001b[0msubdir\u001b[0m \u001b[0;32min\u001b[0m \u001b[0msorted\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mos\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mlistdir\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mdirectory\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    116\u001b[0m                 \u001b[0;32mif\u001b[0m \u001b[0mos\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mpath\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0misdir\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mos\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mpath\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mjoin\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mdirectory\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0msubdir\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    117\u001b[0m                     \u001b[0mclasses\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mappend\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0msubdir\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;31mFileNotFoundError\u001b[0m: [Errno 2] No such file or directory: '/content/sample_data/Images'"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "model_fit = model.fit(train_dataset,steps_per_epoch=5,epochs=30)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 165
+        },
+        "id": "qpE8LB3HQ1WL",
+        "outputId": "9a7a45a6-5a22-4267-c0cc-3f1c64dd02dd"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "error",
+          "ename": "NameError",
+          "evalue": "ignored",
+          "traceback": [
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+            "\u001b[0;31mNameError\u001b[0m                                 Traceback (most recent call last)",
+            "\u001b[0;32m<ipython-input-4-e8555db8a3dd>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m()\u001b[0m\n\u001b[0;32m----> 1\u001b[0;31m \u001b[0mmodel_fit\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mmodel\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mfit\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mtrain_dataset\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0msteps_per_epoch\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0;36m5\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0mepochs\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0;36m30\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+            "\u001b[0;31mNameError\u001b[0m: name 'model' is not defined"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        ""
+      ],
+      "metadata": {
+        "id": "LQ_llZZeOqQC"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        ""
+      ],
+      "metadata": {
+        "id": "qZqE3hEMUYZx"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# New Section"
+      ],
+      "metadata": {
+        "id": "AnXoex69O1SV"
+      }
+    }
+  ]
+}
